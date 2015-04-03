@@ -1,6 +1,8 @@
 #!/bin/sh
-
+echo "Starting script"
+echo "Running Properties"
 . ./properties.sh
+echo "Properties Complete"
 
 prep() {
     rm -Rf ./Outputs/
@@ -211,13 +213,18 @@ mac() {
 
     rm -Rf ./Outputs/Mac/
     mkdir ./Outputs/Mac/
-
+    echo "COPY cp -R ./Mac/* ./Outputs/Mac/"
     cp -R ./Mac/* ./Outputs/Mac/
+    mkdir ./Outputs/Mac/Pencil.app/Contents/Resources/
+    echo "COPY cp -R ./Outputs/Pencil/* ./Outputs/Mac/Pencil.app/Contents/Resources/"
     cp -R ./Outputs/Pencil/* ./Outputs/Mac/Pencil.app/Contents/Resources/
 
-    find ./Outputs/Mac/ -name .svn | xargs -i rm -Rf {}
-
-    cp -R ./Outputs/Pencil/application.ini.tpl ./Outputs/Mac/Pencil.app/Contents/Resources/application.ini
+    #find ./Outputs/Mac/ -name .svn | xargs -i rm -Rf {}
+    #find ~ -type f -name "*pdf" -print0 | xargs -0 -i ln -fs {} ~/Documents/pdfs/
+    #find ~ -type f -name "*pdf" -exec ln -svf {} ~/Documents/pdfs/ \;
+    find ./Outputs/Mac/ -name .svn -exec ln -svf{} \;
+    echo "COPY cp -R ./Outputs/Pencil/application.ini ./Outputs/Mac/Pencil.app/Contents/Resources/application.ini"
+    cp -R ./Outputs/Pencil/application.ini ./Outputs/Mac/Pencil.app/Contents/Resources/application.ini
 
     ./replacer.sh ./Outputs/Mac/Pencil.app/Contents/Resources/application.ini
     ./replacer.sh ./Outputs/Mac/Pencil.app/Contents/Resources/defaults/preferences/pencil.js
@@ -270,7 +277,7 @@ maintainer_clean() {
     clean
 }
 
-
+echo "Checking Cases"
 
 case "$1" in
     clean)
@@ -282,7 +289,9 @@ case "$1" in
         ;;
 
     *)
+        echo "Running Prep"
         prep
+        echo "Prep Complete"
         ;;
 esac
 
@@ -296,7 +305,9 @@ case "$1" in
         ;;
 
     mac)
+        echo "Running Mac"
         mac
+        echo "Mac Complete"
         ;;
 
     linux)

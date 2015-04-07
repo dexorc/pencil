@@ -220,15 +220,19 @@ mac() {
     cp -R ./Outputs/Pencil/* ./Outputs/Mac/Pencil.app/Contents/Resources/
 
     #find ./Outputs/Mac/ -name .svn | xargs -i rm -Rf {}
-    #find ~ -type f -name "*pdf" -print0 | xargs -0 -i ln -fs {} ~/Documents/pdfs/
-    #find ~ -type f -name "*pdf" -exec ln -svf {} ~/Documents/pdfs/ \;
-    find ./Outputs/Mac/ -name .svn -exec ln -svf{} \;
+
     echo "COPY cp -R ./Outputs/Pencil/application.ini ./Outputs/Mac/Pencil.app/Contents/Resources/application.ini"
     cp -R ./Outputs/Pencil/application.ini ./Outputs/Mac/Pencil.app/Contents/Resources/application.ini
 
     ./replacer.sh ./Outputs/Mac/Pencil.app/Contents/Resources/application.ini
     ./replacer.sh ./Outputs/Mac/Pencil.app/Contents/Resources/defaults/preferences/pencil.js
-    ./replacer.sh ./Outputs/Mac/Pencil.app/Contents/Info.plist
+    #./replacer.sh ./Outputs/Mac/Pencil.app/Contents/Info.plist
+
+    codesign -s PencilDev -fv \
+         --keychain /Users/djaramillo/Library/Keychains/login.keychain ./Outputs/Mac/Pencil.app
+         # --resource-rules ./Pencil.app/Contents/_CodeSignature/CodeResources \
+         # --requirements '=designated =>  identifier "org.you.yourapp" and ( (anchor apple generic and certificate leaf[field.1.2.840.113635.100.6.1.9] ) or (anchor apple generic and    certificate 1[field.1.2.840.113635.100.6.2.6]  and    certificate leaf[field.1.2.840.113635.100.6.1.13] and    certificate leaf[subject.OU] = "43AQ936H96"))'
+    
 
     #genisoimage -V Pencil -r -apple -root ./Outputs/Mac/
 

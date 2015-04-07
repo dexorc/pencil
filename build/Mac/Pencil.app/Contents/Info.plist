@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleExecutable</key>
-	<string>xulrunner</string>
+	<string>start.sh</string>
 	<key>CFBundleGetInfoString</key>
-	<string>@NAME@</string>
+	<string>1.0</string>
 	<key>CFBundleIconFile</key>
 	<string>main-window.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -13,15 +13,15 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>@NAME@</string>
+	<string>Evolus Pencil</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>@VERSION@.@BUILD@</string>
+	<string>2.0</string>
 	<key>CFBundleSignature</key>
-	<string>WRUN</string>
+	<string>PENC</string>
 	<key>CFBundleVersion</key>
-	<string>@VERSION@.@BUILD@</string>
+	<string>2.0.5</string>
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 </dict>
